@@ -1,0 +1,20 @@
+{
+  "name": "redisFilesearch",
+  "version": "1.0.0",
+  "description": "Simple user management app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "bootstrap": "^4.3.1",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.7.7",
+    "method-override": "^2.3.7",
+    "nodemon": "^2.0.15",
+    "redis": "^2.7.1",
+    "redredisearch": "0.0.1"
+  }
+}
