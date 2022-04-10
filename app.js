@@ -120,7 +120,7 @@ app.post('/add/todo',function(req,res,next){
 })
 
 //JSON Object 
-app.post('/add/json',function(req,res,next){
+app.post('/add/json',async function(req,res,next){
   let key = req.body.key;
   let full_name = req.body.full_name;
   let email = req.body.email;
@@ -128,15 +128,25 @@ app.post('/add/json',function(req,res,next){
     full_name : full_name,
     email : email
   }
-  client.JSON.SET(key,[
-    jsonData
-  ], function (err, reply) {
+  await client.SET(key,
+    JSON.stringify(jsonData)
+  , function (err, reply) {
     if (err) {
       console.log(err);
     }
+    else
     console.log(reply);
     res.redirect('/')
   })
+  const results =[] ;
+ const stringData =  await client.get(key,function(err,reply){
+   if(err){
+     console.log(err);
+   } else {
+     console.log(reply);
+   }
+ })
+  
 })
 
 // Delete User
@@ -154,6 +164,22 @@ app.get('/all/todo',function(req,res){
   });
   
 })
+
+const redisJSON = {
+  id:1,
+  name:'AA'
+}
+
+app.post('/user_info',function(req,res){
+  let temp = client.set('user_id', JSON.stringify(redisJSON), function (err, reply) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(reply);
+  })
+})
+
+
 
 app.listen(port, function(){
   console.log('Server started on port '+port);
